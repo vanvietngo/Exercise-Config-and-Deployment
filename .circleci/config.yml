@@ -26,7 +26,19 @@ commands:
           command: |
             aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}
           
-
+  # create invetory file
+  create_inventory:
+    steps:
+      - run:
+          name: Create inventory
+          command: |
+            echo "[all]" > inventory
+      - run:
+          name: Create inventory
+          command: |
+            aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text >> inventory
 
 jobs:
   # Exercise: Creating a Simple Workflow
@@ -94,6 +106,7 @@ jobs:
           command: |
             # install the dependencies needed for your playbook
             apk add --update ansible 
+
       - run:
           name: Configure server
           command: |
