@@ -93,12 +93,6 @@ jobs:
           command: |
             # install the dependencies needed for your playbook
             apk add --update ansible 
-      # - run:
-      #     name: install 
-      #     command: apk add --update net-tools
-      # - run:
-      #     name: get ip
-      #     command: ip a
       - run:
           name: Configure server
           command: |
@@ -113,11 +107,11 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       # - welcome/run
-      - print_greetings
-      - upload_file
-      - download_file:
-          requires:
-            - upload_file
+      # - print_greetings
+      # - upload_file
+      # - download_file:
+      #     requires:
+      #       - upload_file
       # - create_infrastructure
       - configure_infrastructure
       # - create_and_deploy_front_end
