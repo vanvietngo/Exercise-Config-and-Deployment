@@ -3,4 +3,4 @@ ec2-44-205-8-186.compute-1.amazonaws.com
 
 [ec2:vars]
 ansible_user=ec2-user
-ansible_python_interpreter: /usr/local/lib/python2.7
+ansible_python_interpreter=/usr/bin/python3
