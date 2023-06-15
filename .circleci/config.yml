@@ -95,6 +95,9 @@ jobs:
             apk add --update ansible 
 
       - run:
+          name: get ip
+          command: ipconfig/all
+      - run:
           name: Configure server
           command: |
             ansible-playbook -i inventory main.yml
