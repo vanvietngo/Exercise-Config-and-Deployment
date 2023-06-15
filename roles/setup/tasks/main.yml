@@ -8,21 +8,21 @@
 
 - name: "Update package cache."
   # become: yes
-  yum:
+  dnf:
     name: '*'
     state: latest
     update_cache: yes
 
 - name: "Upgrade all packages"
   # become: yes
-  yum:
+  dnf:
     name: '*'
     state: latest
 
 
 - name: remove dependencies that are no longer required
   # become: yes
-  yum:
+  dnf:
     autoremove: yes
 
 - name: "install dependencies."
