@@ -27,14 +27,14 @@
 
 - name: "install dependencies."
   # become: yes
-  yum:
+  dnf:
     name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
 
 - name: "install pm2"
   # become: yes
-  npm:
+  dnf:
     name: pm2
     global: yes
     production: yes
