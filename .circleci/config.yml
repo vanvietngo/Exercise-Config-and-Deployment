@@ -93,7 +93,12 @@ jobs:
           command: |
             # install the dependencies needed for your playbook
             apk add --update ansible 
-
+      # - run:
+      #     name: install 
+      #     command: apk add --update net-tools
+      # - run:
+      #     name: get ip
+      #     command: ip a
       - run:
           name: Configure server
           command: |
