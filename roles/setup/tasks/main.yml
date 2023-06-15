@@ -1,42 +1,55 @@
-- name: "update yum packages."
-  become: true
-  yum:
-    update_cache: true
+# update apt packages
+# upgrade packages
+# install dependencies, such as NodeJS and NPM
+# install pm2
+# create a ~/web directory
+# copy index test page from files/index.js to ~/web/index.js
+# Start the weeb server using the command pm2 start ~/web/index.js -f
 
-- name: "upgrade packages"
-  become: true
+- name: "Update package cache."
+  # become: yes
   yum:
-    name: "*"
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: "Upgrade all packages"
+  # become: yes
+  yum:
+    name: '*'
     state: latest
 
-- name: "install node dependencies"
-  become: true
+
+- name: remove dependencies that are no longer required
+  # become: yes
   yum:
-    name:
-      - nodejs
-      #- npm # TODO: additional steps required before installing this
-    state: present
-    update_cache: true
+    autoremove: yes
+
+- name: "install dependencies."
+  # become: yes
+  yum:
+    name: ["nodejs", "npm"]
+    state: latest
+    update_cache: yes
 
 - name: "install pm2"
-  become: true
+  # become: yes
   npm:
     name: pm2
-    global: true
-    production: true
+    global: yes
+    production: yes
     state: present
 
-- name: "create ~/web"
-  ansible.builtin.file:
+- name: Creates directory
+  file:
     path: ~/web
     state: directory
-    mode: '0755'
 
-- name: "copy files"
-  copy:
-    src: index.js
-    dest: ~/web
-    backup: true
+- name: Copy index test page
+  template:
+    src: "files/index.js"
+    dest: "~/web/index.js"
 
-- name: "start server"
-  shell: pm2 start ~/web/index.js -f
+- name: Executing node
+  shell: |
+    pm2 start ~/web/index.js -f
