@@ -33,3 +33,7 @@
 # The Ansible Playbook above is responsible for configuring the EC2 instance and copy over the files/index.js file.
 
 # EC2 Ubuntu instance - You should have an EC2 instance running in your AWS account. We suggest having the Ubuntu instance for better compatibility with the exercise. Be sure to use your "udacity" key pair.
+
+
+# bash
+# ansible-playbook main.yml -i inventory --private-key ./ansible.cer
