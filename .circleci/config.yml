@@ -60,24 +60,24 @@ jobs:
           at: ~/
       - run: cat ~/output.txt 
  
-  # Exercise: Infrastructure Creation
-  # Exercise - Rollback
-  create_infrastructure: 
-    docker:
-      - image: amazon/aws-cli
-    steps:
-      - checkout
-      - run:
-          name: Create Cloudformation Stack
-          command: |
-            aws cloudformation deploy \
-              --template-file template.yml \
-              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-              --region us-east-2
-      # Fail the job intentionally to simulate an error.
-      # Uncomment the line below if you want to fail the current step
-      # - run: return 1
-      - destroy_environment
+  # # Exercise: Infrastructure Creation
+  # # Exercise - Rollback
+  # create_infrastructure: 
+  #   docker:
+  #     - image: amazon/aws-cli
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Create Cloudformation Stack
+  #         command: |
+  #           aws cloudformation deploy \
+  #             --template-file template.yml \
+  #             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+  #             --region us-east-2
+  #     # Fail the job intentionally to simulate an error.
+  #     # Uncomment the line below if you want to fail the current step
+  #     # - run: return 1
+  #     - destroy_environment
 
 
   # Exercise: Config and Deployment
@@ -87,7 +87,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["86:ce:34:c1:cd:c0:b3:f9:96:57:f5:71:5e:a6:a5:ee"] # You can get this ID in the section where you registered the SSH Key
+          fingerprints: ["11:0c:23:f3:a6:8b:83:56:78:26:5f:03:37:d2:bf:cf"] # You can get this ID in the section where you registered the SSH Key
       - run:
           name: Install dependencies
           command: |
