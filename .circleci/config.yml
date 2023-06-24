@@ -69,11 +69,12 @@ jobs:
             ls
             mkdir hello
             ls
-            echo "THIS IS A SAMPLE TEXT" > ~/hello/output.txt  
+            # echo "THIS IS A SAMPLE TEXT" > ~/hello/output.txt  
       - persist_to_workspace:
           root: ~/
           paths: 
-            - project/.circleci/hello/output.txt  
+            - .
+            # - project/.circleci/hello/output.txt  
 
   download_file:
     docker:
