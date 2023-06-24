@@ -64,7 +64,11 @@ jobs:
       - run: 
           name: test persist
           command:  |
+            echo "pwd"
+            pwd
+            ls
             mkdir hello
+            ls
             echo "THIS IS A SAMPLE TEXT" > ~/hello/output.txt  
       - persist_to_workspace:
           root: ~/
