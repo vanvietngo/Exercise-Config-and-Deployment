@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   # Choose either one of the orbs below
   # welcome: circleci/welcome-orb@0.4.1
-  # aws-cli: circleci/aws-cli@2.0.3
+  aws-cli: circleci/aws-cli@2.0.3
 
 
 commands:
@@ -31,12 +31,12 @@ commands:
     steps:
       - run:
           name: Smock test
-          command:
+          command: |
             URL="https://blog.udacity.com/"
             # Test if website exists
             if curl -s --head ${URL} 
-            then
-              return 0
+              then
+                return 0
             else
               return 1
             fi
