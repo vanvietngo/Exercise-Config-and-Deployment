@@ -26,6 +26,21 @@ commands:
           command: |
             aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}
           
+# sMOKE TEST
+  smock_test:
+    steps:
+      - run:
+          name: Smock test
+          command:
+            URL="https://blog.udacity.com/"
+            # Test if website exists
+            if curl -s --head ${URL} 
+            then
+              return 0
+            else
+              return 1
+            fi
+
 
 jobs:
   # Exercise: Creating a Simple Workflow
@@ -46,11 +61,15 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo "THIS IS A SAMPLE TEXT" > ~/output.txt  
+      - run: 
+          name: test persist
+          command:  |
+            mkdir hello
+            echo "THIS IS A SAMPLE TEXT" > ~/hello/output.txt  
       - persist_to_workspace:
           root: ~/
           paths: 
-            - output.txt  
+            - ./hello/output.txt  
 
   download_file:
     docker:
@@ -60,6 +79,14 @@ jobs:
           at: ~/
       - run: cat ~/output.txt 
  
+
+  smock_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - smock_test:
+          id: <<pipeline.id>>  
   # # Exercise: Infrastructure Creation
   # # Exercise - Rollback
   # create_infrastructure: 
@@ -108,12 +135,12 @@ workflows:
     jobs:
       # - welcome/run
       # - print_greetings
-      # - upload_file
-      # - download_file:
-      #     requires:
-      #       - upload_file
+      - upload_file
+      - download_file:
+          requires:
+            - upload_file
       # - create_infrastructure
-      - configure_infrastructure
+      # - configure_infrastructure
       # - create_and_deploy_front_end
       # - promote_to_production:
       #     requires: 
@@ -123,3 +150,4 @@ workflows:
       #     requires:
       #       - get_last_deployment_id
       #       - promote_to_production
+      # - smock_test
