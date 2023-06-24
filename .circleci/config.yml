@@ -69,7 +69,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths: 
-            - ./hello/output.txt  
+            - project/.circleci/hello/output.txt  
 
   download_file:
     docker:
